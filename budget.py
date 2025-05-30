@@ -1,3 +1,4 @@
+BUDGET_FILE = "monthly_budgets.txt"
 # 設定每月預算
 def set_monthly_budget(month):
     year, month = month.split("-")
@@ -14,6 +15,6 @@ def set_monthly_budget(month):
     except ValueError as e:
         print(f"無效的預算金額: {e}")
         return None
-    with open("monthly_budgets.txt", "a", encoding="utf-8") as f:
-        f.write(f"{month},{budget}\n")
+    with open(BUDGET_FILE, "a", encoding="utf-8") as f:
+        f.write(f"{month},{budget},{budget}\n")
     print(f"{month} 的預算已設定為 {budget} 元")
