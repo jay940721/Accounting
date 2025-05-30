@@ -23,6 +23,8 @@ def record_expense():
     reason = input("輸入原因: ").strip()
     if not reason:
         reason = "(無原因)"
+    
+    input_date = ""
     while True:
         input_date = input("輸入日期 (YYYY-MM-DD) 或留空紀錄為本日: ").strip()
         if not input_date:
