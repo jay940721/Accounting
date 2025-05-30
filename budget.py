@@ -1,5 +1,4 @@
 BUDGET_FILE = "monthly_budgets.txt"
-# 設定每月預算
 
 
 def set_monthly_budget(month):
