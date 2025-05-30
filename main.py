@@ -35,26 +35,10 @@ def record_expense():
             print("無效的日期格式或日期，請輸入有效的日期 (YYYY-MM-DD)。")
     with open(FILE_PATH, "a") as file:
         file.write(f"{input_date},{amount},{reason}\n")
-    # 檢查並更新預算
-    updated = False
-    with open(budget.BUDGET_FILE, "r") as file:
-        budgets = file.readlines()
-    new_budgets = []
-    for line in budgets:
-        if line.startswith(input_date[:7]):
-            year_month, total, budget_amount = line.strip().split(",")
-            budget_amount = float(budget_amount)
-            new_amount = budget_amount + amount
-            if new_amount < 0:
-                print(f"警告: {year_month} 的預算已超支！")
 
-            new_budgets.append(f"{year_month},{total},{new_amount}\n")
-            updated = True
-        else:
-            new_budgets.append(line)
-    if updated:
-        with open(budget.BUDGET_FILE, "w") as file:
-            file.writelines(new_budgets)
+    if amount < 0:
+        budget.update_budget(input_date, amount)
+        
     print("紀錄成功！")
 
 
