@@ -113,8 +113,11 @@ def delete_expenses():
         print("No. | 日期       | 金額 | 原因")
         print("-" * 40)
         for i, line in enumerate(expenses[start:end], start=1 + start):
-            date, amount, reason = line.strip().split(",")
-            print(f"{i:>3} | {date} | {amount} | {reason}")
+            try:
+                date, amount, reason = line.strip().split(",")
+                print(f"{i:>3} | {date} | {amount} | {reason}")
+            except ValueError:
+                continue
 
         print("\n 選項:")
         if len(expenses) > end:
