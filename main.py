@@ -1,4 +1,5 @@
 import os
+import budget
 from datetime import date
 
 FILE_PATH = "expenses.txt"
@@ -157,6 +158,7 @@ def main():
         print("recode 記錄收支")
         print("view 查看收支")
         print("delete 刪除收支")
+        print("budget 設定預算")
         print("exit 離開")
         choice = input("請選擇一個選項: ")
         
@@ -166,6 +168,9 @@ def main():
             view_expenses()
         elif choice == "delete":
             delete_expenses()
+        elif choice == "budget":
+            month = input("請輸入月份 (例如: 2023-10): ").strip()
+            budget.set_monthly_budget(month)
         elif choice == "exit" or choice == "quit":
             print("再見！")
             break
