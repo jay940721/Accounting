@@ -19,3 +19,34 @@ def set_monthly_budget(month):
     with open(BUDGET_FILE, "a", encoding="utf-8") as f:
         f.write(f"{month},{budget},{budget}\n")
     print(f"{month} 的預算已設定為 {budget} 元")
+
+def update_budget(month, amount):
+    year, month = month.split("-")
+    if not (year.isdigit() and month.isdigit() and 1 <= int(month) <= 12):
+        print("月份輸入錯誤，請使用 YYYY-MM 格式")
+        return None
+    month = f"{year}-{int(month):02d}"
+
+    updated = False
+    
+    with open(BUDGET_FILE, "r", encoding="utf-8") as f:
+        budgets = f.readlines()
+    new_budgets = []
+    for line in budgets:
+        if line.startswith(month):
+            year_month, total, budget_amount = line.strip().split(",")
+            budget_amount = float(budget_amount)
+            new_amount = budget_amount + amount
+            if new_amount < 0 and amount > 0:
+                print(f"警告: {year_month} 的預算已超支！")
+            new_budgets.append(f"{year_month},{total},{new_amount}\n")
+            updated = True
+        else:
+            new_budgets.append(line)
+    with open(BUDGET_FILE, "w", encoding="utf-8") as f:
+        f.writelines(new_budgets)
+        if updated:
+            print(f"{month} 的預算剩餘 {new_amount} 元")
+        else:
+            f.write(f"{month},0,{amount}\n")
+        
