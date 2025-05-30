@@ -3,7 +3,7 @@ BUDGET_FILE = "monthly_budgets.txt"
 
 
 def set_monthly_budget(month):
-    if month is None:
+    if month is "":
         month = date.today().strftime("%Y-%m")
     else:
         year, month = month.split("-")
@@ -23,6 +23,7 @@ def set_monthly_budget(month):
     with open(BUDGET_FILE, "a", encoding="utf-8") as f:
         f.write(f"{month},{budget},{budget}\n")
     print(f"{month} 的預算已設定為 {budget} 元")
+    input("按任意鍵繼續...")
 
 
 def update_budget(month, amount):
