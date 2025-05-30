@@ -12,6 +12,10 @@ def clear_screen():
         os.system("cls" if os.name == "nt" else "clear")
 
 
+def end_function(sentence):
+    print(sentence)
+    input("按任意鍵繼續...")
+
 def record_expense():
     while True:
         amount = input("輸入金額(支出為負數): ")
@@ -41,17 +45,18 @@ def record_expense():
     with open(FILE_PATH, "a") as file:
         file.write(f"{input_date},{amount},{reason}\n")
 
-    print("紀錄成功！")
+    end_function("紀錄成功！")
 
 
 def view_expenses():
     if not os.path.exists(FILE_PATH):
-        print("沒有任何支出紀錄。")
+        end_function("沒有任何支出紀錄。")
+        return
 
     with open(FILE_PATH, "r") as file:
         expenses = file.readlines()
     if not expenses:
-        print("沒有任何支出紀錄。")
+        end_function("沒有任何支出紀錄。")
         return
 
     pages = 0
@@ -92,14 +97,14 @@ def view_expenses():
 
 def delete_expenses():
     if not os.path.exists(FILE_PATH):
-        print("沒有任何支出紀錄可以刪除。")
+        end_function("沒有任何支出紀錄可以刪除。")
         return
 
     with open(FILE_PATH, "r") as file:
         expenses = file.readlines()
 
     if not expenses:
-        print("沒有任何支出紀錄可以刪除。")
+        end_function("沒有任何支出紀錄可以刪除。")
         return
 
     original_expenses = expenses.copy()
@@ -137,9 +142,9 @@ def delete_expenses():
                     date, amount, reason = line.strip().split(",")
                     budget.update_budget(date[:7], -int(amount))
                 expenses = []
-                print("紀錄已全部刪除。")
+                end_function("紀錄已全部刪除。")
             else:
-                print("已取消刪除。")
+                end_function("已取消刪除。")
         elif choice == "exit":
             break
         elif choice.isdigit():
@@ -148,7 +153,7 @@ def delete_expenses():
                 budget.update_budget(expenses[index - 1].strip().split(
                     ",")[0][:7], -int(expenses[index - 1].strip().split(",")[1]))
                 del expenses[index - 1]
-                print("紀錄已刪除。")
+                end_function("紀錄已刪除。")
                 break
             else:
                 print("無效的編號，請輸入有效的編號。")
@@ -156,7 +161,7 @@ def delete_expenses():
             pages += 1
         elif choice == "prev" and pages > 0:
             if not expenses:
-                print("沒有任何支出紀錄可以刪除。")
+                end_function("沒有任何支出紀錄可以刪除。")
                 break
 
         # Write back to the file only if expenses were modified
@@ -165,7 +170,7 @@ def delete_expenses():
                 file.writelines(expenses)
 
         if not expenses:
-            print("沒有任何支出紀錄可以刪除。")
+            end_function("沒有任何支出紀錄可以刪除。")
             break
 
 
