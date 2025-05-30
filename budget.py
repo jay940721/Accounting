@@ -1,12 +1,16 @@
+from datetime import date
 BUDGET_FILE = "monthly_budgets.txt"
 
 
 def set_monthly_budget(month):
-    year, month = month.split("-")
-    if not (year.isdigit() and month.isdigit() and 1 <= int(month) <= 12):
-        print("月份輸入錯誤，請使用 YYYY-MM 格式")
-        return None
-    month = f"{year}-{int(month):02d}"
+    if month is None:
+        month = date.today().strftime("%Y-%m")
+    else:
+        year, month = month.split("-")
+        if not (year.isdigit() and month.isdigit() and 1 <= int(month) <= 12):
+            print("月份輸入錯誤，請使用 YYYY-MM 格式")
+            return None
+        month = f"{year}-{int(month):02d}"
 
     budget = input(f"請輸入 {month} 的預算金額: ")
     try:
@@ -20,6 +24,7 @@ def set_monthly_budget(month):
         f.write(f"{month},{budget},{budget}\n")
     print(f"{month} 的預算已設定為 {budget} 元")
 
+
 def update_budget(month, amount):
     year, month = month.split("-")
     if not (year.isdigit() and month.isdigit() and 1 <= int(month) <= 12):
@@ -28,7 +33,6 @@ def update_budget(month, amount):
     month = f"{year}-{int(month):02d}"
 
     updated = False
-    
     with open(BUDGET_FILE, "r", encoding="utf-8") as f:
         budgets = f.readlines()
     new_budgets = []
@@ -49,4 +53,3 @@ def update_budget(month, amount):
             print(f"{month} 的預算剩餘 {new_amount} 元")
         else:
             f.write(f"{month},0,{amount}\n")
-        
