@@ -169,7 +169,7 @@ def main():
         elif choice == "delete":
             delete_expenses()
         elif choice == "budget":
-            month = input("請輸入月份 (例如: 2023-10): ").strip()
+            month = input("請輸入年份-月份(YYYY-MM): ").strip()
             budget.set_monthly_budget(month)
         elif choice == "exit" or choice == "quit":
             print("再見！")
