@@ -154,19 +154,19 @@ def main():
         if CLEAR_SCREEN_ENABLED:
             clear_screen()
         print("\n歡迎使用收支紀錄系統")
-        print("1. 記錄收支")
-        print("2. 查看收支")
-        print("3. 刪除收支")
-        print("4. 離開")
+        print("recode 記錄收支")
+        print("view 查看收支")
+        print("delete 刪除收支")
+        print("exit 離開")
         choice = input("請選擇一個選項: ")
         
-        if choice == "1":
+        if choice == "recode":
             record_expense()
-        elif choice == "2":
+        elif choice == "view":
             view_expenses()
-        elif choice == "3":
+        elif choice == "delete":
             delete_expenses()
-        elif choice == "4":
+        elif choice == "exit" or choice == "quit":
             print("再見！")
             break
         else:
