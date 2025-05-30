@@ -6,9 +6,11 @@ FILE_PATH = "expenses.txt"
 
 CLEAR_SCREEN_ENABLED = True
 
+
 def clear_screen():
     if CLEAR_SCREEN_ENABLED:
         os.system("cls" if os.name == "nt" else "clear")
+
 
 def record_expense():
     while True:
@@ -55,6 +57,7 @@ def record_expense():
             file.writelines(new_budgets)
     print("紀錄成功！")
 
+
 def view_expenses():
     if not os.path.exists(FILE_PATH):
         print("沒有任何支出紀錄。")
@@ -64,7 +67,7 @@ def view_expenses():
     if not expenses:
         print("沒有任何支出紀錄。")
         return
-    
+
     pages = 0
     while True:
         start = pages * 10
@@ -100,6 +103,7 @@ def view_expenses():
         else:
             print(f"{choice}不是一個正確的選項，請重新輸入選項。")
 
+
 def delete_expenses():
     if not os.path.exists(FILE_PATH):
         print("沒有任何支出紀錄可以刪除。")
@@ -111,7 +115,7 @@ def delete_expenses():
     if not expenses:
         print("沒有任何支出紀錄可以刪除。")
         return
-    
+
     original_expenses = expenses.copy()
 
     pages = 0
@@ -160,7 +164,7 @@ def delete_expenses():
             if not expenses:
                 print("沒有任何支出紀錄可以刪除。")
                 break
-    
+
         # Write back to the file only if expenses were modified
         if expenses != original_expenses:
             with open(FILE_PATH, "w") as file:
@@ -169,6 +173,7 @@ def delete_expenses():
         if not expenses:
             print("沒有任何支出紀錄可以刪除。")
             break
+
 
 def main():
     while True:
@@ -181,7 +186,7 @@ def main():
         print("budget 設定預算")
         print("exit 離開")
         choice = input("請選擇一個選項: ")
-        
+
         if choice == "recode":
             record_expense()
         elif choice == "view":
@@ -196,6 +201,7 @@ def main():
             break
         else:
             print("無效的選項，請重新輸入。")
+
 
 if __name__ == "__main__":
     main()
