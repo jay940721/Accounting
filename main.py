@@ -23,7 +23,7 @@ def record_expense():
     reason = input("輸入原因: ").strip()
     if not reason:
         reason = "(無原因)"
-    
+
     input_date = ""
     while True:
         input_date = input("輸入日期 (YYYY-MM-DD) 或留空紀錄為本日: ").strip()
@@ -35,12 +35,12 @@ def record_expense():
             break
         except ValueError:
             print("無效的日期格式或日期，請輸入有效的日期 (YYYY-MM-DD)。")
+    if amount < 0:
+        budget.update_budget(input_date[:7], amount)
+
     with open(FILE_PATH, "a") as file:
         file.write(f"{input_date},{amount},{reason}\n")
 
-    if amount < 0:
-        budget.update_budget(input_date, amount)
-        
     print("紀錄成功！")
 
 
@@ -130,6 +130,9 @@ def delete_expenses():
         if choice == "clear":
             confirm = input("這會刪除全部紀錄，你確定嗎？(y/n): ").strip().lower()
             if confirm in ("y", "yes"):
+                for line in expenses:
+                    date, amount, reason = line.strip().split(",")
+                    budget.update_budget(date[:7], -int(amount))
                 expenses = []
                 print("紀錄已全部刪除。")
             else:
@@ -139,6 +142,8 @@ def delete_expenses():
         elif choice.isdigit():
             index = int(choice)
             if 1 <= index <= len(expenses):
+                budget.update_budget(expenses[index - 1].strip().split(
+                    ",")[0][:7], -int(expenses[index - 1].strip().split(",")[1]))
                 del expenses[index - 1]
                 print("紀錄已刪除。")
                 break
