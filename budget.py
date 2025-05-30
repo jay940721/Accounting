@@ -1,5 +1,11 @@
 # 設定每月預算
 def set_monthly_budget(month):
+    year, month = month.split("-")
+    if not (year.isdigit() and month.isdigit() and 1 <= int(month) <= 12):
+        print("月份輸入錯誤，請使用 YYYY-MM 格式")
+        return None
+    month = f"{year}-{int(month):02d}"
+    
     budget = input(f"請輸入 {month} 的預算金額: ")
     try:
         budget = float(budget)
