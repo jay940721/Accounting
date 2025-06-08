@@ -198,9 +198,7 @@ def main():
             budget.set_monthly_budget(month)
         elif choice == "view budget":
             month = input("請輸入年份-月份(YYYY-MM): ").strip()
-            remain = budget.get_monthly_budget(month)
-            print(f"{month} 月預算剩餘：{remain} 元")
-            input("按任意鍵繼續...")
+            budget.get_monthly_budget(month)
         elif choice == "exit" or choice == "quit":
             print("再見！")
             break

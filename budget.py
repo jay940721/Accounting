@@ -59,7 +59,7 @@ def get_monthly_budget(month):
     year, month = month.split("-")
     if not (year.isdigit() and month.isdigit() and 1 <= int(month) <= 12):
         print("月份輸入錯誤，請使用 YYYY-MM 格式")
-        return 0
+        return
     month = f"{year}-{int(month):02d}"
 
     try:
@@ -68,9 +68,11 @@ def get_monthly_budget(month):
                 if line.startswith(month):
                     parts = line.strip().split(",")
                     if len(parts) == 3:
-                        return float(parts[2])
+                        print(f"{month} 的預算為 {parts[1]} 元，剩餘 {parts[2]} 元")
+                        input("按任意鍵繼續...")
+                        return
         print(f"{month} 尚未設定預算")
-        return 0
+        return
     except FileNotFoundError:
         print("預算檔案不存在")
-        return 0            
+        return          
