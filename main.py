@@ -4,14 +4,6 @@ from datetime import date
 
 FILE_PATH = "expenses.txt"
 
-CLEAR_SCREEN_ENABLED = True
-
-
-def clear_screen():
-    if CLEAR_SCREEN_ENABLED:
-        os.system("cls" if os.name == "nt" else "clear")
-
-
 def end_function(sentence):
     print(sentence)
     input("按任意鍵繼續...")
@@ -63,8 +55,8 @@ def view_expenses():
     while True:
         start = pages * 10
         end = start + 10
-        if CLEAR_SCREEN_ENABLED:
-            clear_screen()
+
+        os.system("cls" if os.name == "nt" else "clear")
 
         print("No. | 日期       | 金額  | 原因")
         print("-" * 40)
@@ -113,7 +105,7 @@ def delete_expenses():
     while True:
         start = pages * 10
         end = start + 10
-        clear_screen()
+        os.system("cls" if os.name == "nt" else "clear")
 
         print("No. | 日期       | 金額  | 原因")
         print("-" * 40)
@@ -176,8 +168,7 @@ def delete_expenses():
 
 def main():
     while True:
-        if CLEAR_SCREEN_ENABLED:
-            clear_screen()
+        os.system("cls" if os.name == "nt" else "clear")
         print("\n歡迎使用收支紀錄系統")
         print("recode 記錄收支")
         print("view 查看收支")
