@@ -66,12 +66,12 @@ def view_expenses():
         if CLEAR_SCREEN_ENABLED:
             clear_screen()
 
-        print("No. | 日期       | 金額 | 原因")
+        print("No. | 日期       | 金額  | 原因")
         print("-" * 40)
         for i, line in enumerate(expenses[start:end], start=1 + start):
             try:
                 date, amount, reason = line.strip().split(",")
-                print(f"{i:>3} | {date} | {amount} | {reason}")
+                print(f"{i:>3} | {date} | {int(amount):>5} | {reason}")
             except ValueError:
                 print(f"{i:>3} | 格式錯誤的紀錄: {line.strip()}")
                 print(f"{i:>3} | {date} | {amount} | {reason}")
@@ -115,12 +115,12 @@ def delete_expenses():
         end = start + 10
         clear_screen()
 
-        print("No. | 日期       | 金額 | 原因")
+        print("No. | 日期       | 金額  | 原因")
         print("-" * 40)
         for i, line in enumerate(expenses[start:end], start=1 + start):
             try:
                 date, amount, reason = line.strip().split(",")
-                print(f"{i:>3} | {date} | {amount} | {reason}")
+                print(f"{i:>3} | {date} | {int(amount):>5} | {reason}")
             except ValueError:
                 continue
 
