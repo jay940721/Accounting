@@ -28,6 +28,9 @@ def record():
             break
         try:
             input_date = date.fromisoformat(input_date).strftime("%Y-%m-%d")
+            if input_date > date.today().strftime("%Y-%m-%d"):
+                print("日期不能是未來的日期，請重新輸入。")
+                continue
             break
         except ValueError:
             print("無效的日期格式或日期，請輸入有效的日期 (YYYY-MM-DD)。")
