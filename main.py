@@ -184,7 +184,7 @@ def main():
         print("delete 刪除收支")
         print("budget 預算")
         print("exit 離開")
-        choice = input("請選擇一個選項: ")
+        choice = input(">> ")
 
         if choice == "recode":
             record_expense()
@@ -208,7 +208,7 @@ def main():
             print("再見！")
             break
         else:
-            print("無效的選項，請重新輸入。")
+            print(f"{choice}不是一個正確的選項，請重新輸入選項。")
 
 
 if __name__ == "__main__":
