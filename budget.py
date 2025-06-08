@@ -20,7 +20,7 @@ def set_monthly_budget(month):
     except ValueError as e:
         print(f"無效的預算金額: {e}")
         return None
-    
+
     try:
         with open(BUDGET_FILE, "r", encoding="utf-8") as f:
             lines = f.readlines()
@@ -31,7 +31,7 @@ def set_monthly_budget(month):
     new_lines.append(f"{month},{budget},{budget}\n")
     with open(BUDGET_FILE, "w", encoding="utf-8") as f:
         f.writelines(new_lines)
-        
+
     print(f"{month} 的預算已設定為 {budget} 元")
     input("按任意鍵繼續...")
 
@@ -65,6 +65,7 @@ def update_budget(month, amount):
         else:
             f.write(f"{month},0,{amount}\n")
 
+
 def get_monthly_budget(month):
     year, month = month.split("-")
     if not (year.isdigit() and month.isdigit() and 1 <= int(month) <= 12):
@@ -85,4 +86,4 @@ def get_monthly_budget(month):
         return
     except FileNotFoundError:
         print("預算檔案不存在")
-        return          
+        return

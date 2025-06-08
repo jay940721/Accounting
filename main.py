@@ -3,6 +3,7 @@ import budget
 import expense
 from datetime import date
 
+
 def main():
     while True:
         os.system("cls" if os.name == "nt" else "clear")
