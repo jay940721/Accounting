@@ -52,6 +52,8 @@ def update_budget(month, amount):
             year_month, total, budget_amount = line.strip().split(",")
             budget_amount = float(budget_amount)
             new_amount = budget_amount + amount
+            if amount >0:
+                total += amount
             if new_amount < 0 and amount > 0:
                 print(f"警告: {year_month} 的預算已超支！")
             new_budgets.append(f"{year_month},{total},{new_amount}\n")

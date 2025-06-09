@@ -8,7 +8,7 @@ def end_function(sentence):
     print(sentence)
     input("按任意鍵繼續...")
 
-def record():
+def record(include):
     while True:
         amount = input("輸入金額(支出為負數): ")
         try:
@@ -34,11 +34,11 @@ def record():
             break
         except ValueError:
             print("無效的日期格式或日期，請輸入有效的日期 (YYYY-MM-DD)。")
-    if amount < 0:
+    if  include == 'y':
         budget.update_budget(input_date[:7], amount)
 
     with open(FILE_PATH, "a") as file:
-        file.write(f"{input_date},{amount},{reason}\n")
+        file.write(f"{input_date},{amount},{reason},{include}\n")
 
     end_function("紀錄成功！")
 
@@ -61,15 +61,16 @@ def view():
 
         os.system("cls" if os.name == "nt" else "clear")
 
-        print("No. | 日期       | 金額  | 原因")
+        print("No. | 日期       | 金額  | 原因     |列入預算")
         print("-" * 40)
         for i, line in enumerate(expenses[start:end], start=1 + start):
             try:
-                date, amount, reason = line.strip().split(",")
-                print(f"{i:>3} | {date} | {int(amount):>5} | {reason}")
+                date, amount, reason, include = line.strip().split(",")
+                mark = "O" if include == 'y' else 'X'
+                print(f"{i:>3} | {date} | {int(amount):>5} | {reason:>5} | {mark}")
             except ValueError:
                 print(f"{i:>3} | 格式錯誤的紀錄: {line.strip()}")
-                print(f"{i:>3} | {date} | {amount} | {reason}")
+                print(f"{i:>3} | {date} | {amount} | {reason} |{mark}")
             except ValueError:
                 print(f"{i:>3} | [格式錯誤的紀錄，無法解析]")
 
@@ -110,12 +111,13 @@ def delete():
         end = start + 10
         os.system("cls" if os.name == "nt" else "clear")
 
-        print("No. | 日期       | 金額  | 原因")
+        print("No. | 日期       | 金額  | 原因     |列入預算")
         print("-" * 40)
         for i, line in enumerate(expenses[start:end], start=1 + start):
             try:
-                date, amount, reason = line.strip().split(",")
-                print(f"{i:>3} | {date} | {int(amount):>5} | {reason}")
+                date, amount, reason, include = line.strip().split(",")
+                mark = "O" if include == 'y' else 'X'
+                print(f"{i:>3} | {date} | {int(amount):>5} | {reason:>5} |{mark}")
             except ValueError:
                 continue
 
@@ -134,8 +136,12 @@ def delete():
             confirm = input("這會刪除全部紀錄，你確定嗎？(y/n): ").strip().lower()
             if confirm in ("y", "yes"):
                 for line in expenses:
-                    date, amount, reason = line.strip().split(",")
-                    budget.update_budget(date[:7], -int(amount))
+                    try:
+                        date, amount, reason, include = line.strip().split(",")
+                        if include == 'y':
+                           budget.update_budget(date[:7], -int(amount))
+                    except ValueError:
+                        continue
                 expenses = []
                 end_function("紀錄已全部刪除。")
             else:
@@ -145,8 +151,14 @@ def delete():
         elif choice.isdigit():
             index = int(choice)
             if 1 <= index <= len(expenses):
-                budget.update_budget(expenses[index - 1].strip().split(
-                    ",")[0][:7], -int(expenses[index - 1].strip().split(",")[1]))
+                try:
+                    date, amount, reason, include = expenses[index - 1].strip().split(",")
+                    if include == 'y':
+                      budget.update_budget(date[:7], -int(amount))
+            #    budget.update_budget(expenses[index - 1].strip().split(
+            #        ",")[0][:7], -int(expenses[index - 1].strip().split(",")[1]))
+                except ValueError:
+                    continue
                 del expenses[index - 1]
                 end_function("紀錄已刪除。")
                 break
