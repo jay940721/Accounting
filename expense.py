@@ -9,12 +9,7 @@ def end_function(sentence):
     print(sentence)
     input("按任意鍵繼續...")
 
-<<<<<<< HEAD
-def record(include):
-=======
-
 def record():
->>>>>>> c66802ae13c678ef180f1e557f9f91f3a85894e9
     while True:
         amount = input("輸入金額(支出為負數): ")
         try:
@@ -40,11 +35,15 @@ def record():
             break
         except ValueError:
             print("無效的日期格式或日期，請輸入有效的日期 (YYYY-MM-DD)。")
-    if  include == 'y':
-        budget.update_budget(input_date[:7], amount)
+    budgetRecode = ""
+    while True:
+        if budgetRecode == "n":
+            break
+        elif budgetRecode == "y":
+            budget.update_budget(input_date[:7], amount)
 
     with open(FILE_PATH, "a") as file:
-        file.write(f"{input_date},{amount},{reason},{include}\n")
+        file.write(f"{input_date},{amount},{reason},{budgetRecode}\n")
 
     end_function("紀錄成功！")
 

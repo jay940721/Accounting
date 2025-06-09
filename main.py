@@ -20,8 +20,7 @@ def main():
                 print("delete 刪除收支")
                 choice.append(input(">> ").strip().lower())
             if choice[1] == "recode":
-                include = input("此項目是否列入預算?(y/n):")
-                expense.record(include)
+                expense.record()
             elif choice[1] == "view":
                 expense.view()
             elif choice[1] == "delete":
