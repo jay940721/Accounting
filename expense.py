@@ -43,7 +43,7 @@ def record():
             budget.update_budget(input_date[:7], amount)
 
     with open(FILE_PATH, "a") as file:
-        file.write(f"{input_date},{amount},{reason},{budgetRecode}\n")
+        file.write(f"{input_date},{amount},{budgetRecode},{reason}\n")
 
     end_function("紀錄成功！")
 
