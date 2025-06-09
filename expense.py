@@ -37,10 +37,12 @@ def record():
             print("無效的日期格式或日期，請輸入有效的日期 (YYYY-MM-DD)。")
     budgetRecode = ""
     while True:
+        budgetRecode = input("是否列入預算? (y/n): ").strip().lower()
         if budgetRecode == "n":
             break
         elif budgetRecode == "y":
             budget.update_budget(input_date[:7], amount)
+            break
 
     with open(FILE_PATH, "a") as file:
         file.write(f"{input_date},{amount},{budgetRecode},{reason}\n")
