@@ -71,7 +71,7 @@ def view():
 
         os.system("cls" if os.name == "nt" else "clear")
 
-        print("{:^4}|{:^10}|{:^6}|{:^8}|  {}".format("No.", "日期", "金額", "原因", "列入預算"))
+        print("{:^4}|{:^10}|{:^6}|{:^8}|  {}".format("No.", "日期", "金額", "列入預算", "原因"))
         print("-" * 48)
         for i, line in enumerate(expenses[start:end], start=1 + start):
             try:
