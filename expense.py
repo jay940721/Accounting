@@ -35,8 +35,9 @@ def record():
             break
         except ValueError:
             print("無效的日期格式或日期，請輸入有效的日期 (YYYY-MM-DD)。")
-    budgetRecode = ""
-    while True:
+
+    budgetRecode = "n"
+    while amount < 0:
         budgetRecode = input("是否列入預算? (y/n): ").strip().lower()
         if budgetRecode == "n":
             break
