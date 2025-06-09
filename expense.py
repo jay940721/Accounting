@@ -66,18 +66,15 @@ def view():
 
         os.system("cls" if os.name == "nt" else "clear")
 
-        print("No. | 日期       | 金額  | 原因     |列入預算")
-        print("-" * 40)
+        print("{:^4}|{:^10}|{:^6}|{:^8}|  {}".format("No.", "日期", "金額", "原因", "列入預算"))
+        print("-" * 48)
         for i, line in enumerate(expenses[start:end], start=1 + start):
             try:
-                date, amount, reason, include = line.strip().split(",")
+                date, amount, include, reason = line.strip().split(",")
                 mark = "O" if include == 'y' else 'X'
-                print(f"{i:>3} | {date} | {int(amount):>5} | {reason:>5} | {mark}")
+                print("{:^4}|{:^12}|{:^8}|{:^10}|  {}".format(i, date, amount, mark, reason))
             except ValueError:
-                print(f"{i:>3} | 格式錯誤的紀錄: {line.strip()}")
-                print(f"{i:>3} | {date} | {amount} | {reason} |{mark}")
-            except ValueError:
-                print(f"{i:>3} | [格式錯誤的紀錄，無法解析]")
+                print("{:^4}|{:^43}".format(i, "[格式錯誤的紀錄，無法解析]"))
 
         print("\n 選項:")
         if len(expenses) > end:
