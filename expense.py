@@ -4,11 +4,17 @@ from datetime import date
 
 FILE_PATH = "expenses.txt"
 
+
 def end_function(sentence):
     print(sentence)
     input("按任意鍵繼續...")
 
+<<<<<<< HEAD
 def record(include):
+=======
+
+def record():
+>>>>>>> c66802ae13c678ef180f1e557f9f91f3a85894e9
     while True:
         amount = input("輸入金額(支出為負數): ")
         try:
@@ -179,6 +185,3 @@ def delete():
         if not expenses:
             end_function("沒有任何支出紀錄可以刪除。")
             break
-
-
-
