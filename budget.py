@@ -27,8 +27,13 @@ def set_monthly_budget(month):
     except FileNotFoundError:
         lines = []
 
-    new_lines = [line for line in lines if not line.startswith(month)]
-    new_lines.append(f"{month},{budget},{budget}\n")
+    new_lines = []
+    for line in lines:
+        if line.startswith(month):
+            year_month, total, amount = line.strip().split(",")
+            new_lines.append(f"{year_month},{budget},{budget + float(amount) - float(total)}\n")
+        else:
+            new_lines.append(line)
     with open(BUDGET_FILE, "w", encoding="utf-8") as f:
         f.writelines(new_lines)
 
