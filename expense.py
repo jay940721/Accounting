@@ -43,6 +43,8 @@ def record():
         elif budgetRecode == "y":
             budget.update_budget(input_date[:7], amount)
             break
+        else:
+            print("無效的選擇，", end="")
 
     with open(FILE_PATH, "a") as file:
         file.write(f"{input_date},{amount},{budgetRecode},{reason}\n")
