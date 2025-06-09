@@ -26,7 +26,7 @@ def main():
             elif choice[1] == "delete":
                 expense.delete()
             else:
-                print(f"{choice[1]} 不是一個正確的選項，請重新輸入選項。")
+                expense.end_function(f"{choice[1]} 不是一個正確的選項，請重新輸入選項。")
         elif choice[0] == "budget":
             if len(choice) == 1:
                 print("set  設定預算")
@@ -39,12 +39,12 @@ def main():
                 month = input("請輸入年份-月份(YYYY-MM): ").strip()
                 budget.get_monthly_budget(month)
             else:
-                print(f"{choice[1]} 不是一個正確的選項，請重新輸入選項。")
+                expense.end_function(f"{choice[1]} 不是一個正確的選項，請重新輸入選項。")
         elif choice[0] == "exit":
             print("再見！")
             break
         else:
-            print(f"{choice[0]}不是一個正確的選項，請重新輸入選項。")
+            expense.end_function(f"{choice[0]}不是一個正確的選項，請重新輸入選項。")
 
 
 if __name__ == "__main__":
